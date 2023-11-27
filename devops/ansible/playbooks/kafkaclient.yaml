@@ -36,7 +36,6 @@
         - tsconfig.json
     - name: Trigger Build & Run
       shell: echo "Running build"
-      # when: (app_files.changed) or (app_folder.changed)
       notify:
         - docker build
         - docker stop containers

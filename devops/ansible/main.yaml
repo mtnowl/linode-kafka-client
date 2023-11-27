@@ -1,3 +1,5 @@
 ---
+- name: Setup Kafka Server
+  import_playbook: ./playbooks/kafkaserver.yaml
 - name: Setup Kafka Client
   import_playbook: ./playbooks/kafkaclient.yaml
