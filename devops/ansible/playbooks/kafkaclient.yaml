@@ -1,5 +1,5 @@
 ---
-- hosts: kafka-client
+- hosts: kafkaclient
   become: true
   vars:
     root_dir: './../../../'

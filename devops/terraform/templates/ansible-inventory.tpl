@@ -1,9 +1,9 @@
-[kafka-client]
+[kafkaclient]
 %{ for host in clients ~}
 ${host}
 %{ endfor ~}
 
-[kafka-server]
+[kafkaserver]
 %{ for host in servers ~}
 ${host}
 %{ endfor ~}

@@ -29,6 +29,6 @@
   shell: |
     docker run \
     --restart always \
-    -p 80:8001 \
-    -e PORT=8001 \
+    -p 3000:3000 \
+    -e PORT=3000 \
     -d "{{ docker_app_name | default(_docker_app_name) }}"

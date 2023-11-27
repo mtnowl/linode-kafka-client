@@ -1,3 +1,3 @@
 ---
 - name: Setup Kafka Client
-  import_playbook: ./playbooks/kafka-client.yaml
+  import_playbook: ./playbooks/kafkaclient.yaml
