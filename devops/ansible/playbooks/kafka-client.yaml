@@ -1,0 +1,44 @@
+---
+- hosts: kafka-client
+  become: true
+  vars:
+    root_dir: './../../../'
+    dest_dir: /var/www
+    docker_app_name: app
+  roles:
+    - ./../roles/docker
+    - ./../roles/docker_containers
+  tasks:
+    - name: Setup /var/www/src
+      file:
+        path: '{{ dest_dir }}/src'
+        state: directory
+        mode: 0755
+    - name: Copy public folder
+      copy:
+        src: '{{ root_dir }}/public/'
+        dest: '{{ dest_dir }}/public/'
+      register: app_folder
+    - name: Copy Src folder
+      copy:
+        src: '{{ root_dir }}/src/'
+        dest: '{{ dest_dir }}/src/'
+      register: app_folder
+    - copy:
+        src: '{{ root_dir }}/{{ item }}'
+        dest: '{{ dest_dir }}'
+      register: app_files
+      with_items:
+        - Dockerfile
+        - next.config.js
+        - package.json
+        - package-lock.json
+        - tsconfig.json
+    - name: Trigger Build & Run
+      shell: echo "Running build"
+      # when: (app_files.changed) or (app_folder.changed)
+      notify:
+        - docker build
+        - docker stop containers
+        - docker remove containers
+        - docker run app
