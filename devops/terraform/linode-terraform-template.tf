@@ -8,11 +8,13 @@ terraform {
   }
   backend "s3" {
       endpoints                   = {s3 = "https://us-east-1.linodeobjects.com"}
-      skip_credentials_validation = true
-      skip_requesting_account_id  = true
       bucket                      = "terraform-backend-testing"
       key                         = "my-kafka-client.tfstate"
       region                      = "us-east-1"
+      shared_credentials_file     = "./s3-credentials"
+      skip_s3_checksum            = true
+      skip_credentials_validation = true
+      skip_requesting_account_id  = true
   }
 }
 
@@ -45,6 +47,10 @@ resource "linode_instance" "kafka-server" {
 }
 
 resource "local_file" "ansible_inventory" {
-    content = templatefile("${local.templates_dir}/ansible-inventory.tpl", { hosts=[for host in linode_instance.kafka-client.*: "${host.ip_address}"] })
-    filename = "${local.devops_dir}/ansible/inventory.ini"
+    content = templatefile("${local.templates_dir}/ansible-inventory.tpl", 
+    { 
+      clients=[for host in linode_instance.kafka-client.*: "${host.ip_address}"],
+      servers=[for host in linode_instance.kafka-server.*: "${host.ip_address}"] 
+    })
+    filename = "${local.root_dir}/ansible/inventory.ini"
 }
