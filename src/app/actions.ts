@@ -5,8 +5,8 @@ import { cache } from 'react';
 
 const kafka = new Kafka({
   clientId: 'my-kafka-client',
-  brokers: ['127.0.0.1:9092'],
-  // brokers: ['45.79.170.237:9092'],
+  // brokers: ['127.0.0.1:9092'],
+  brokers: ['45.79.170.237:9092'],
 });
 
 export const produce = async () => {

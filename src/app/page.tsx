@@ -1,9 +1,10 @@
-import Image from 'next/image';
 import styles from './page.module.css';
-import { consume, produce } from './actions';
+import { produce } from './actions';
+import { Consumer } from './consumer';
+import Loading from './loading';
+import { Suspense } from 'react';
 
 export default async function Home() {
-  const messages = await consume();
   return (
     <main className={styles.main}>
       <div className={styles.center}>
@@ -12,13 +13,9 @@ export default async function Home() {
         </form>
       </div>
       <div className={styles.center}>
-        <ul>
-          {messages.length === 0 ? (
-            <li>No messages</li>
-          ) : (
-            messages.map((msg) => <li key={msg}>{msg}</li>)
-          )}
-        </ul>
+        <Suspense fallback={<Loading />}>
+          <Consumer />
+        </Suspense>
       </div>
     </main>
   );

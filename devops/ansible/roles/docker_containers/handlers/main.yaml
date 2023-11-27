@@ -26,7 +26,7 @@
 - name: docker run kafka
   shell: |
     docker run -d --name kafka \
-    --hostname="{{ ansible_default_ipv4.address }}" \
+    --hostname {{ ansible_default_ipv4.address }} \
     -e KAFKA_CFG_NODE_ID=0 \
     -e KAFKA_CFG_PROCESS_ROLES=controller,broker \
     -e KAFKA_CFG_LISTENERS=PLAINTEXT://:9092,CONTROLLER://:9093 \
