@@ -5,6 +5,7 @@ on:
 
 env:
   TF_DIR: ./devops/terraform
+  TF_VAR_client_instance_count: 2
   TF_VAR_token: ${{secrets.TERRAFORM_ACCESS_TOKEN}}
   TF_VAR_authorized_keys: ${{secrets.TERRAFORM_AUTHORIZED_KEYS}}
   TF_VAR_root_pass: ${{secrets.TERRAFORM_ROOT_PASS}}

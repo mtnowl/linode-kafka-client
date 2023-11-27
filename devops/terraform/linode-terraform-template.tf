@@ -22,8 +22,9 @@ provider "linode" {
 }
 
 resource "linode_instance" "kafka-client" {
+        count = var.client_instance_count
         image = "linode/ubuntu20.04"
-        label = "Kafka-Client"
+        label = "Kafka-Client-${count.index + 1}"
         group = var.group
         region = var.region
         type = "g6-standard-1"
