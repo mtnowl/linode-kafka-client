@@ -5,6 +5,7 @@
     - ./../roles/docker
     - ./../roles/docker_containers
   tasks:
+    - debug: var=ansible_default_ipv4.address
     - name: Trigger Build & Run
       shell: echo "Running build"
       notify:
