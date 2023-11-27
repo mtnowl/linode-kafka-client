@@ -6,9 +6,9 @@ on:
 env:
   SSH_KEY_PATH: devops/ansible/private.pem
   TF_DIR: ./devops/terraform
-  TF_VARS_token: ${{secrets.TERRAFORM_ACCESS_TOKEN}}
-  TF_VARS_authorized_keys: ${{secrets.TERRAFORM_AUTHORIZED_KEYS}}
-  TF_VARS_root_pass: ${{secrets.TERRAFORM_ROOT_PASS}}
+  TF_VAR_token: ${{secrets.TERRAFORM_ACCESS_TOKEN}}
+  TF_VAR_authorized_keys: ${{secrets.TERRAFORM_AUTHORIZED_KEYS}}
+  TF_VAR_root_pass: ${{secrets.TERRAFORM_ROOT_PASS}}
   AWS_ACCESS_KEY_ID: ${{secrets.TERRAFORM_S3_ACCESS_KEY}}
   AWS_SECRET_ACCESS_KEY: ${{secrets.TERRAFORM_S3_SECRET_ACCESS_KEY}}
 
