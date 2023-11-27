@@ -1,4 +1,3 @@
-# Linode Provider definition
 terraform {
   required_providers {
     linode = {
@@ -22,7 +21,6 @@ provider "linode" {
   token = var.token
 }
 
-# Example Web Server
 resource "linode_instance" "kafka-client" {
         image = "linode/ubuntu20.04"
         label = "Kafka-Client"
@@ -34,7 +32,6 @@ resource "linode_instance" "kafka-client" {
         root_pass = var.root_pass
 }
 
-# Example Database Server
 resource "linode_instance" "kafka-server" {
         image = "linode/ubuntu20.04"
         label = "Kafka-Server"
@@ -52,5 +49,5 @@ resource "local_file" "ansible_inventory" {
       clients=[for host in linode_instance.kafka-client.*: "${host.ip_address}"],
       servers=[for host in linode_instance.kafka-server.*: "${host.ip_address}"] 
     })
-    filename = "${local.root_dir}/ansible/inventory.ini"
+    filename = "${local.root_dir}/../ansible/inventory.ini"
 }
