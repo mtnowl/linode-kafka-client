@@ -5,6 +5,7 @@ on:
 
 env:
   SSH_KEY_PATH: devops/ansible/private.pem
+  TF_DIR: ./devops/terraform
   TF_VARS_token: ${{secrets.TERRAFORM_ACCESS_TOKEN}}
   TF_VARS_authorized_keys: ${{secrets.TERRAFORM_AUTHORIZED_KEYS}}
   TF_VARS_root_pass: ${{secrets.TERRAFORM_ROOT_PASS}}
@@ -20,11 +21,12 @@ jobs:
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
       - name: Terraform Init
-        run: terraform -chdir=./devops/terraform init
+        run: terraform -chdir=$TF_DIR init
       - name: Terraform Validate
-        run: terraform -chdir=./devops/terraform validate -no-color
+        run: terraform -chdir=$TF_DIR validate -no-color
       - name: Terraform Apply Changes
-        run: terraform -chdir=./devops/terraform apply -auto-approve
+        run: terraform -chdir=$TF_DIR apply -auto-approve
+        timeout-minutes: 10
   ansible:
     needs: terraform
     runs-on: ubuntu-latest
