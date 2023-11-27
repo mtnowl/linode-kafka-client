@@ -27,6 +27,9 @@ jobs:
         run: terraform -chdir=$TF_DIR validate -no-color
       - name: Terraform Apply Changes
         run: terraform -chdir=$TF_DIR apply -auto-approve
+      - name: Check inventory.ini
+        working-directory: ./devops/ansible
+        run: cat inventory.ini
 
       - name: Setup Python
         uses: actions/setup-python@v4
